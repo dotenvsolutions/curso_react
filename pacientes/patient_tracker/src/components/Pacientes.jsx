@@ -1,6 +1,8 @@
-const Pacientes = ({ paciente, setPaciente }) => {
-  const { nombre, dueno, sintoma } = paciente
-
+const Pacientes = ({ paciente, setPaciente, deletePatient }) => {
+  const { nombre, dueno, sintoma, id } = paciente
+  const handlEliminar = () => {
+    deletePatient(id)
+  }
   return (
     <>
       <div className="flex flex-col md:flex-row justify-center items-center">
@@ -17,8 +19,8 @@ const Pacientes = ({ paciente, setPaciente }) => {
         </div>
       </div>
       <div className="flex justify-between mt-10">
-        <button type="button" onClick={() => setPaciente(paciente)} className="bg-indigo-600 hover:bg-indigo-700 py-2 px-10 uppercase font-bold rounded-lg" >Editar</button>
-        <button type="button" className="bg-red-600 hover:bg-red-700 py-2 px-10 uppercase font-bold rounded-lg" >Eliminar</button>
+        <button type="button" value={paciente.id ? 'Editar paciente' : 'Agregar Paciente'} onClick={() => setPaciente(paciente)} className="bg-indigo-600 hover:bg-indigo-700 py-2 px-10 uppercase font-bold rounded-lg" ></button>
+        <button type="button" onClick={handlEliminar} className="bg-red-600 hover:bg-red-700 py-2 px-10 uppercase font-bold rounded-lg" >Eliminar</button>
       </div>
     </>
 

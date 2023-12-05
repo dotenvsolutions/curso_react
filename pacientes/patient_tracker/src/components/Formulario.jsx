@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 
 
-const Formulario = ({ pacientes, setPacientes, paciente }) => {
+const Formulario = ({ pacientes, setPacientes, paciente, setPaciente }) => {
   const [nombre, setNombre] = useState("")
   const [dueno, setDueno] = useState("")
   const [sintoma, setSintomas] = useState("")
@@ -9,20 +9,6 @@ const Formulario = ({ pacientes, setPacientes, paciente }) => {
     const fecha = Date.now().toString(36)
     const number = Math.random().toString(36).substr(2)
     return fecha + number
-  }
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    const objPatient = {
-      nombre,
-      dueno,
-      sintoma,
-      id: getIdentify()
-    }
-
-    setPacientes([...pacientes, objPatient])
-    setNombre('')
-    setDueno('')
-    setSintomas('')
   }
 
   useEffect(() => {
@@ -36,6 +22,33 @@ const Formulario = ({ pacientes, setPacientes, paciente }) => {
       setSintomas('')
     }
   }, [paciente])
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const objPatient = {
+      nombre,
+      dueno,
+      sintoma,
+
+    }
+
+    if (paciente.id) {
+      objPatient.id = paciente.id
+      const objPatientAct = pacientes.map(pt => { pt.id == paciente.id ? objPatient : pt })
+      setPacientes(objPatientAct)
+      setPaciente({})
+    } else {
+      objPatient.id = getIdentify()
+      setPacientes([...pacientes, objPatient])
+    }
+
+
+    setNombre('')
+    setDueno('')
+    setSintomas('')
+  }
+
+
 
   return (
     <div className="md:w-1/2 lg:w-2/5">
