@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 
 
-const Formulario = ({ pacientes, setPacientes }) => {
+const Formulario = ({ pacientes, setPacientes, paciente }) => {
   const [nombre, setNombre] = useState("")
   const [dueno, setDueno] = useState("")
   const [sintoma, setSintomas] = useState("")
@@ -24,6 +24,18 @@ const Formulario = ({ pacientes, setPacientes }) => {
     setDueno('')
     setSintomas('')
   }
+
+  useEffect(() => {
+    if (Object.keys(paciente).length > 0) {
+      setNombre(paciente.nombre)
+      setDueno(paciente.dueno)
+      setSintomas(paciente.sintoma)
+    } else {
+      setDueno('')
+      setNombre('')
+      setSintomas('')
+    }
+  }, [paciente])
 
   return (
     <div className="md:w-1/2 lg:w-2/5">
